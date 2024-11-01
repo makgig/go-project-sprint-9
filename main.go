@@ -31,7 +31,7 @@ func Generator(ctx context.Context, ch chan<- int64, fn func(int64)) {
 func Worker(in <-chan int64, out chan<- int64) {
 	// 2. Функция Worker
 	defer close(out)
-	for v, ok := <-in; ok; v, ok = <-in {
+	for v := range in {
 		out <- v
 		time.Sleep(time.Millisecond)
 	}
